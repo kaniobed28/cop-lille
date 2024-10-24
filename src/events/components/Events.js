@@ -8,7 +8,7 @@ const Events = () => {
     {
       name: 'Sunday Worship Service',
       date: 'October 27, 2024',
-      time: '10:00 AM',
+      time: '01:00 PM',
       location: 'Main Church Hall',
       description: 'Join us for a powerful time of worship, prayer, and the Word of God.',
     },

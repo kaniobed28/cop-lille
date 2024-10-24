@@ -1,7 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, IconButton, Box, InputBase, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import ChurchIcon from '@mui/icons-material/Church';
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import SearchIcon from '@mui/icons-material/Search';
 import { motion } from 'framer-motion';
@@ -32,9 +31,13 @@ const Header = () => {
           >
             {/* Logo and Church Name */}
             <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-              <ChurchIcon sx={{ fontSize: 40, marginRight: '16px' }} />
+              <img
+                src="images/logo-cop.gif" // Insert your image URL here
+                alt="CoP Logo"
+                style={{ width: 40, height: 40, marginRight: '16px' }} // Adjust image size as needed
+              />
               <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: { xs: '1.2rem', sm: '1.5rem' } }}>
-                COP-Lille
+              Church of Pentecost
               </Typography>
             </Box>
 
@@ -124,7 +127,7 @@ const Header = () => {
                 variant="body1"
                 sx={{ fontWeight: 'bold', color: 'white', fontSize: { xs: '0.875rem', sm: '1rem' } }}
               >
-                Sunday Service: 10:00 AM
+                Sunday Service: 01:00 PM
               </Typography>
             </Box>
           </Toolbar>

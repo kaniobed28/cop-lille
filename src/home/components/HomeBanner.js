@@ -50,7 +50,7 @@ function HomeBanner() {
             fontWeight: 'bold',
           }}
         >
-          Welcome to COP-Lille
+          Welcome to CoP Lille
         </Typography>
 
         {/* Subheading: Invitation or Service Info */}
@@ -62,7 +62,7 @@ function HomeBanner() {
             marginBottom: 2,
           }}
         >
-          Join us for Sunday Service at 10:00 AM
+          Join us for Sunday Service at 01:00 PM
         </Typography>
 
         {/* Action Buttons */}
