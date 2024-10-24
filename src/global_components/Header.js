@@ -11,6 +11,13 @@ const Header = () => {
     threshold: 0, // Trigger as soon as the top is out of view
   });
 
+  // Animation settings for hover and click effects
+  const textAnimation = {
+    rest: { scale: 1, color: '#ffffff', transition: { duration: 0.3 } }, // default state
+    hover: { scale: 1.1, color: '#ffeb3b', transition: { duration: 0.3 } }, // hover effect
+    tap: { scale: 0.9, color: '#f44336', transition: { duration: 0.2 } }, // click effect
+  };
+
   return (
     <>
       {/* Top Header */}
@@ -37,7 +44,7 @@ const Header = () => {
                 style={{ width: 40, height: 40, marginRight: '16px' }} // Adjust image size as needed
               />
               <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: { xs: '1.2rem', sm: '1.5rem' } }}>
-              Church of Pentecost
+                Church of Pentecost
               </Typography>
             </Box>
 
@@ -93,7 +100,7 @@ const Header = () => {
               padding: { xs: 1, sm: 2 }, // Adjust padding based on screen size
             }}
           >
-            {/* Navigation Links */}
+            {/* Navigation Links with Hover/Click Animation */}
             <Box
               sx={{
                 display: 'flex',
@@ -105,18 +112,24 @@ const Header = () => {
             >
               {['Home', 'Sermons', 'Events', 'About Us', 'Blog', 'Contact'].map((text) => (
                 <Link to={`/${text.toLowerCase().replace(/\s+/g, '-')}`} key={text} style={{ textDecoration: 'none' }}>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      fontWeight: 'bold',
-                      cursor: 'pointer',
-                      color: 'white',
-                      fontSize: { xs: '0.875rem', sm: '1rem' },
-                      '&:hover': { color: 'secondary.main' },
-                    }}
+                  <motion.div
+                    variants={textAnimation}
+                    initial="rest"
+                    whileHover="hover"
+                    whileTap="tap"
                   >
-                    {text}
-                  </Typography>
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        color: 'white',
+                        fontSize: { xs: '0.875rem', sm: '1rem' },
+                      }}
+                    >
+                      {text}
+                    </Typography>
+                  </motion.div>
                 </Link>
               ))}
             </Box>
