@@ -94,8 +94,10 @@ const Header = () => {
         <AppBar position="static" color="primary" elevation={0}>
           <Toolbar
             sx={{
-              justifyContent: 'space-between',
-              flexWrap: 'wrap', // Wrap links on small screens
+              justifyContent: { xs: 'center', md: 'flex-start' }, // Center on small screens, left on larger
+              overflow: 'hidden', // Prevent overflow
+              whiteSpace: 'nowrap', // Keep text on one line
+              flexWrap: 'nowrap', // Prevent wrapping to another line
               gap: 2,
               padding: { xs: 1, sm: 2 }, // Adjust padding based on screen size
             }}
@@ -104,10 +106,8 @@ const Header = () => {
             <Box
               sx={{
                 display: 'flex',
-                flexWrap: 'wrap',
-                gap: { xs: 2, md: 4 },
-                justifyContent: { xs: 'center', sm: 'flex-start' },
-                marginBottom: { xs: 1, md: 0 },
+                gap: { xs: 1, sm: 2, md: 3 },
+                justifyContent: { xs: 'center', md: 'flex-start' }, // Center on small screens, left on larger
               }}
             >
               {['Home', 'Sermons', 'Events', 'About Us', 'Blog', 'Contact'].map((text) => (
@@ -124,7 +124,7 @@ const Header = () => {
                         fontWeight: 'bold',
                         cursor: 'pointer',
                         color: 'white',
-                        fontSize: { xs: '0.875rem', sm: '1rem' },
+                        fontSize: { xs: '0.75rem', sm: '0.875rem' }, // Reduce font size on small screens
                       }}
                     >
                       {text}
@@ -132,16 +132,6 @@ const Header = () => {
                   </motion.div>
                 </Link>
               ))}
-            </Box>
-
-            {/* Service Information */}
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography
-                variant="body1"
-                sx={{ fontWeight: 'bold', color: 'white', fontSize: { xs: '0.875rem', sm: '1rem' } }}
-              >
-                Sunday Service: 01:00 PM
-              </Typography>
             </Box>
           </Toolbar>
         </AppBar>
