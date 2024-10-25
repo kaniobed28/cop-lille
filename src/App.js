@@ -7,7 +7,18 @@ import AboutUs from './about-us/components/AboutUs';
 import Blog from './blogs/components/Blogs';
 import Events from './events/components/Events';
 
-const theme = createTheme();
+const theme = createTheme(
+  {
+    palette: {
+      primary: {
+        main: '#0000ff', // primary color is blue
+      },
+      secondary: {
+        main: '#ffeb3b', // I have made this a yellow but probally will change it
+      },
+    },
+  }
+);
 
 
 function App() {

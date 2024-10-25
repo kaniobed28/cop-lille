@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom'; // Import Link for routing
 
 function HomeBanner() {
   return (
@@ -74,10 +75,12 @@ function HomeBanner() {
             </Button>
           </a>
 
-          {/* "Learn More" Button */}
-          <Button variant="outlined" color="primary" sx={{ fontWeight: 'bold' }}>
-            Learn More
-          </Button>
+          {/* "Learn More" Button to navigate to About Us */}
+          <Link to="/about-us" style={{ textDecoration: 'none' }}>
+            <Button variant="outlined" color="primary" sx={{ fontWeight: 'bold' }}>
+              Learn More
+            </Button>
+          </Link>
         </Box>
       </Box>
     </Box>
