@@ -67,9 +67,14 @@ function HomeBanner() {
 
         {/* Action Buttons */}
         <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
-          <Button variant="contained" color="primary" sx={{ fontWeight: 'bold' }}>
-            Join Us
-          </Button>
+          {/* "Join Us" Button with Google Maps link */}
+          <a href="https://maps.app.goo.gl/d2a2qa6r2rWGctEK9" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+            <Button variant="contained" color="primary" sx={{ fontWeight: 'bold' }}>
+              Join Us
+            </Button>
+          </a>
+
+          {/* "Learn More" Button */}
           <Button variant="outlined" color="primary" sx={{ fontWeight: 'bold' }}>
             Learn More
           </Button>

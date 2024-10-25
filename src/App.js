@@ -7,7 +7,6 @@ import AboutUs from './about-us/components/AboutUs';
 import Blog from './blogs/components/Blogs';
 import Events from './events/components/Events';
 
-
 const theme = createTheme();
 
 
@@ -16,6 +15,7 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <Header />
+        
         <Routes>
           <Route path="/" element={<Home></Home>} />
           <Route path="/home" element={<Home></Home>} />
