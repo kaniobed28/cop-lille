@@ -6,33 +6,38 @@ import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 function HomeBanner() {
   const ref = React.useRef(null);
-  const isInView = useInView(ref, { threshold: 0.1 });
+  const isInView = useInView(ref, { threshold: 0.2 });
   const [hasAnimated, setHasAnimated] = React.useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
 
-  React.useEffect(() => {
-    if (isInView && !hasAnimated) {
-      setHasAnimated(true);
-    }
-  }, [isInView, hasAnimated]);
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const buttonVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
+  // Liste des images pour le carrousel
   const images = [
     "images/cop.jpg",
     "images/cop-pic1.jpg",
     "images/cop2.jpg",
   ];
 
-  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+  // Variants pour les animations
+  const textVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+  };
 
+  const buttonVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: 'easeOut', delay: 0.2 } },
+    hover: { scale: 1.05, transition: { duration: 0.3 } },
+    tap: { scale: 0.95, transition: { duration: 0.2 } },
+  };
+
+  // Gestion de l'animation au premier affichage
+  React.useEffect(() => {
+    if (isInView && !hasAnimated) {
+      setHasAnimated(true);
+    }
+  }, [isInView, hasAnimated]);
+
+  // Gestion du carrousel
   const handleNext = React.useCallback(() => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   }, [images.length]);
@@ -41,18 +46,34 @@ function HomeBanner() {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
+  // Rotation automatique des images
   React.useEffect(() => {
-    const interval = setInterval(handleNext, 15000);
+    const interval = setInterval(handleNext, 8000); // Réduit à 8s pour plus de dynamisme
     return () => clearInterval(interval);
   }, [handleNext]);
 
   return (
-    <Box sx={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
+    <Box
+      sx={{
+        position: 'relative',
+        width: '100%',
+        height: '100vh',
+        overflow: 'hidden',
+        backgroundColor: '#000', // Fond noir pour un meilleur contraste
+      }}
+    >
+      {/* Carrousel d'images avec effet de zoom */}
       {images.map((image, index) => (
         <motion.img
           key={index}
           src={image}
-          alt={`Banner ${index}`}
+          alt={`Bannière ${index + 1}`}
+          initial={{ scale: 1.1 }}
+          animate={{
+            scale: currentImageIndex === index ? 1 : 1.1,
+            opacity: currentImageIndex === index ? 1 : 0,
+          }}
+          transition={{ duration: 1.2, ease: 'easeInOut' }}
           style={{
             width: '100%',
             height: '100%',
@@ -60,47 +81,111 @@ function HomeBanner() {
             position: 'absolute',
             top: 0,
             left: 0,
-            opacity: currentImageIndex === index ? 1 : 0,
-            transition: 'opacity 1s ease-in-out',
           }}
         />
       ))}
 
-      <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: { xs: 2, md: 4 }, color: 'white', background: 'rgba(0, 0, 0, 0.5)', textAlign: 'center' }}>
-        <motion.div ref={ref} variants={textVariants} initial="hidden" animate={hasAnimated ? "visible" : "hidden"}>
-          <Typography variant="h2" component="h1" gutterBottom sx={{ fontSize: { xs: '2rem', md: '3rem' }, fontWeight: 'bold', mb: 2 }}>
-            Welcome to CoP Lille
+      {/* Overlay avec contenu */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: { xs: 2, md: 6 },
+          color: '#fff',
+          background: 'rgba(0, 0, 0, 0.6)', // Overlay plus sombre pour lisibilité
+          textAlign: 'center',
+          zIndex: 1,
+        }}
+      >
+        <motion.div ref={ref} variants={textVariants} initial="hidden" animate={hasAnimated ? 'visible' : 'hidden'}>
+          <Typography
+            variant="h1"
+            component="h1"
+            sx={{
+              fontSize: { xs: '2.5rem', md: '4rem' },
+              fontWeight: 'bold',
+              letterSpacing: '1px',
+              textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)', // Ombre pour lisibilité
+            }}
+          >
+            Bienvenue à CoP Lille
           </Typography>
-          <Typography variant="h4" component="h2" sx={{ fontSize: { xs: '1.2rem', md: '1.5rem' }, mb: 4 }}>
-            Join us for Sunday Service at 01:00 PM
+          <Typography
+            variant="h5"
+            component="h2"
+            sx={{
+              fontSize: { xs: '1.25rem', md: '1.75rem' },
+              mt: 2,
+              mb: 4,
+              fontWeight: 300,
+            }}
+          >
+            Rejoignez-nous pour le culte du dimanche à 13h00
           </Typography>
         </motion.div>
 
+        {/* Boutons avec animations */}
         <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
           <motion.a
             href="https://maps.app.goo.gl/d2a2qa6r2rWGctEK9"
             target="_blank"
             rel="noopener noreferrer"
             style={{ textDecoration: 'none' }}
-            initial="hidden"
-            animate={hasAnimated ? "visible" : "hidden"}
             variants={buttonVariants}
+            initial="hidden"
+            animate={hasAnimated ? 'visible' : 'hidden'}
+            whileHover="hover"
+            whileTap="tap"
           >
-            <Button variant="contained" color="primary" sx={{ fontWeight: 'bold', px: 4, py: 2 }}>
-              Join Us
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: '#1976d2',
+                fontWeight: 'bold',
+                px: 4,
+                py: 1.5,
+                borderRadius: 25,
+                '&:hover': { backgroundColor: '#1565c0' },
+              }}
+            >
+              Nous rejoindre
             </Button>
           </motion.a>
-          <motion.div initial="hidden" animate={hasAnimated ? "visible" : "hidden"} variants={buttonVariants}>
+          <motion.div
+            variants={buttonVariants}
+            initial="hidden"
+            animate={hasAnimated ? 'visible' : 'hidden'}
+            whileHover="hover"
+            whileTap="tap"
+          >
             <Link to="/about-us" style={{ textDecoration: 'none' }}>
-              <Button variant="outlined" color="primary" sx={{ fontWeight: 'bold', px: 4, py: 2 }}>
-                Learn More
+              <Button
+                variant="outlined"
+                sx={{
+                  color: '#fff',
+                  borderColor: '#fff',
+                  fontWeight: 'bold',
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: 25,
+                  '&:hover': { borderColor: '#ffca28', color: '#ffca28' },
+                }}
+              >
+                En savoir plus
               </Button>
             </Link>
           </motion.div>
         </Box>
       </Box>
 
-      {/* Navigation Buttons */}
+      {/* Boutons de navigation */}
       <IconButton
         onClick={handlePrev}
         sx={{
@@ -108,19 +193,18 @@ function HomeBanner() {
           top: '50%',
           left: '20px',
           transform: 'translateY(-50%)',
-          backgroundColor: 'rgba(255, 255, 255, 0.8)',
-          color: 'black',
-          border: '2px solid white',
-          '&:hover': {
-            backgroundColor: 'rgba(255, 255, 255, 1)',
-            transform: 'translateY(-50%) scale(1.1)',
-          },
-          transition: 'all 0.3s ease-in-out',
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          color: '#1976d2',
+          borderRadius: '50%',
+          p: 1.5,
+          zIndex: 2,
+          '&:hover': { backgroundColor: '#fff', transform: 'translateY(-50%) scale(1.1)' },
+          transition: 'all 0.3s ease',
         }}
+        aria-label="Image précédente"
       >
-        <ArrowBackIos fontSize="large" />
+        <ArrowBackIos />
       </IconButton>
-
       <IconButton
         onClick={handleNext}
         sx={{
@@ -128,35 +212,44 @@ function HomeBanner() {
           top: '50%',
           right: '20px',
           transform: 'translateY(-50%)',
-          backgroundColor: 'rgba(255, 255, 255, 0.8)',
-          color: 'black',
-          border: '2px solid white',
-          '&:hover': {
-            backgroundColor: 'rgba(255, 255, 255, 1)',
-            transform: 'translateY(-50%) scale(1.1)',
-          },
-          transition: 'all 0.3s ease-in-out',
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          color: '#1976d2',
+          borderRadius: '50%',
+          p: 1.5,
+          zIndex: 2,
+          '&:hover': { backgroundColor: '#fff', transform: 'translateY(-50%) scale(1.1)' },
+          transition: 'all 0.3s ease',
         }}
+        aria-label="Image suivante"
       >
-        <ArrowForwardIos fontSize="large" />
+        <ArrowForwardIos />
       </IconButton>
 
-      <Box sx={{ position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 1 }}>
+      {/* Indicateurs de carrousel */}
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: 30,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          gap: 1.5,
+          zIndex: 2,
+        }}
+      >
         {images.map((_, index) => (
-          <Box
+          <motion.div
             key={index}
-            sx={{
-              width: 14,
-              height: 14,
-              borderRadius: '50%',
-              backgroundColor: currentImageIndex === index ? 'white' : 'gray',
-              transition: 'background-color 0.3s',
-              cursor: 'pointer',
-              '&:hover': {
-                backgroundColor: currentImageIndex === index ? 'white' : 'lightgray',
-              },
-            }}
             onClick={() => setCurrentImageIndex(index)}
+            whileHover={{ scale: 1.2 }}
+            sx={{
+              width: 12,
+              height: 12,
+              borderRadius: '50%',
+              backgroundColor: currentImageIndex === index ? '#ffca28' : 'rgba(255, 255, 255, 0.5)',
+              cursor: 'pointer',
+              transition: 'background-color 0.3s ease',
+            }}
           />
         ))}
       </Box>

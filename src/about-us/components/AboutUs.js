@@ -1,68 +1,215 @@
 import React from 'react';
-import { Box, Typography, Grid, Avatar } from '@mui/material';
+import { Box, Typography, Grid, Avatar, Card, CardContent } from '@mui/material';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const AboutUs = () => {
+  // Animation pour les sections
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+  };
+
+  // Hooks useInView avec des valeurs par défaut sécurisées
+  const [missionRef, missionInView = false] = useInView({ threshold: 0.2, triggerOnce: true }) || [];
+  const [visionRef, visionInView = false] = useInView({ threshold: 0.2, triggerOnce: true }) || [];
+  const [pastorRef, pastorInView = false] = useInView({ threshold: 0.2, triggerOnce: true }) || [];
+  const [historyRef, historyInView = false] = useInView({ threshold: 0.2, triggerOnce: true }) || [];
+
   return (
-    <Box sx={{ padding: { xs: 2, md: 4 }, backgroundColor: '#f9f9f9' }}>
-      
-      {/* Mission Statement */}
-      <Box sx={{ marginBottom: 4, textAlign: 'center' }}>
-        <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-          Our Mission
-        </Typography>
-        <Typography variant="body1" sx={{ maxWidth: '800px', margin: 'auto' }}>
-          Our mission is to spread the message of love, hope, and faith through Jesus Christ and to make a positive impact in the lives of those in our community.
-        </Typography>
-      </Box>
+    <Box
+      sx={{
+        padding: { xs: 3, md: 6 },
+        background: 'linear-gradient(180deg, #f9f9f9 0%, #ffffff 100%)',
+        minHeight: '100vh',
+      }}
+    >
+      {/* Mission */}
+      <motion.div
+        ref={missionRef}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={missionInView ? 'visible' : 'hidden'}
+      >
+        <Box sx={{ textAlign: 'center', mb: 8 }}>
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 700,
+              color: '#1976d2',
+              mb: 2,
+              fontSize: { xs: '2rem', md: '2.5rem' },
+            }}
+          >
+            Notre Mission
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              maxWidth: '800px',
+              mx: 'auto',
+              color: '#555',
+              fontSize: { xs: '1rem', md: '1.125rem' },
+            }}
+          >
+            Notre mission est de répandre le message d’amour, d’espoir et de foi à travers Jésus-Christ
+            et d’avoir un impact positif dans la vie des membres de notre communauté.
+          </Typography>
+        </Box>
+      </motion.div>
 
-      {/* Vision Statement */}
-      <Box sx={{ marginBottom: 4, textAlign: 'center' }}>
-        <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-          Our Vision
-        </Typography>
-        <Typography variant="body1" sx={{ maxWidth: '800px', margin: 'auto' }}>
-          Our vision is to build a loving, inclusive, and faith-centered community where people can grow spiritually, serve others, and experience the presence of God in their daily lives.
-        </Typography>
-      </Box>
+      {/* Vision */}
+      <motion.div
+        ref={visionRef}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={visionInView ? 'visible' : 'hidden'}
+      >
+        <Box sx={{ textAlign: 'center', mb: 8 }}>
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 700,
+              color: '#1976d2',
+              mb: 2,
+              fontSize: { xs: '2rem', md: '2.5rem' },
+            }}
+          >
+            Notre Vision
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              maxWidth: '800px',
+              mx: 'auto',
+              color: '#555',
+              fontSize: { xs: '1rem', md: '1.125rem' },
+            }}
+          >
+            Notre vision est de bâtir une communauté aimante, inclusive et centrée sur la foi, où chacun
+            peut grandir spirituellement, servir les autres et ressentir la présence de Dieu au quotidien.
+          </Typography>
+        </Box>
+      </motion.div>
 
-      {/* Pastor's Message */}
-      <Box sx={{ marginBottom: 4 }}>
-        <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: 2, textAlign: 'center' }}>
-          A Message from Our Pastor
-        </Typography>
-        
-        <Grid container spacing={4} alignItems="center">
-          {/* Pastor's Image */}
-          <Grid item xs={12} md={4}>
-            <Avatar
-              alt="Pastor's Image"
-              src="https://your-pastor-image-url.com" // Replace with actual image URL
-              sx={{ width: 200, height: 200, margin: 'auto' }}
-            />
-          </Grid>
+      {/* Message du Pasteur */}
+      <motion.div
+        ref={pastorRef}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={pastorInView ? 'visible' : 'hidden'}
+      >
+        <Box sx={{ mb: 8 }}>
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 700,
+              color: '#1976d2',
+              mb: 4,
+              textAlign: 'center',
+              fontSize: { xs: '2rem', md: '2.5rem' },
+            }}
+          >
+            Message de Notre Pasteur
+          </Typography>
+          <Card
+            sx={{
+              maxWidth: '1000px',
+              mx: 'auto',
+              borderRadius: 3,
+              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)',
+              overflow: 'hidden',
+              backgroundColor: '#fff',
+            }}
+          >
+            <Grid container spacing={4} alignItems="center">
+              {/* Image du Pasteur */}
+              <Grid item xs={12} md={4}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                  sx={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  <Avatar
+                    alt="Pasteur"
+                    src="https://images.unsplash.com/photo-1599566150163-29194dca5116?q=80&w=1887&auto=format&fit=crop"
+                    sx={{
+                      width: { xs: 150, md: 250 },
+                      height: { xs: 150, md: 250 },
+                      border: '4px solid #ffca28',
+                      mx: 'auto',
+                    }}
+                  />
+                </motion.div>
+              </Grid>
 
-          {/* Pastor's Message */}
-          <Grid item xs={12} md={8}>
-            <Typography variant="body1">
-              "Welcome to our church! We are thrilled that you are interested in learning more about us. We are a community grounded in faith, dedicated to helping each other grow spiritually and to serving our neighbors with love and compassion. We hope that through our services, outreach, and ministries, you will experience the love and presence of God."
-            </Typography>
-            <Typography variant="body2" sx={{ marginTop: 2, fontStyle: 'italic', fontWeight: 'bold' }}>
-              - Pastor [Pastor's Name]
-            </Typography>
-          </Grid>
-        </Grid>
-      </Box>
+              {/* Message */}
+              <Grid item xs={12} md={8}>
+                <CardContent>
+                  <Typography
+                    variant="body1"
+                    sx={{ color: '#333', fontSize: { xs: '1rem', md: '1.125rem' }, mb: 2 }}
+                  >
+                    "Bienvenue dans notre église ! Nous sommes ravis que vous souhaitiez en savoir plus sur
+                    nous. Nous formons une communauté ancrée dans la foi, dédiée à aider chacun à grandir
+                    spirituellement et à servir nos voisins avec amour et compassion. Nous espérons que
+                    nos cultes, nos actions et nos ministères vous permettront de ressentir l’amour et la
+                    présence de Dieu."
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontStyle: 'italic',
+                      fontWeight: 'bold',
+                      color: '#1976d2',
+                      textAlign: 'right',
+                    }}
+                  >
+                    - Pasteur [Nom du Pasteur]
+                  </Typography>
+                </CardContent>
+              </Grid>
+            </Grid>
+          </Card>
+        </Box>
+      </motion.div>
 
-      {/* Church History */}
-      <Box>
-        <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: 2, textAlign: 'center' }}>
-          Our History
-        </Typography>
-        <Typography variant="body1" sx={{ maxWidth: '800px', margin: 'auto' }}>
-          Founded in [Year], [Church Name] has been a pillar of faith in the community for over [X years]. What began as a small gathering of believers has grown into a vibrant community dedicated to worship, fellowship, and service. Through the years, we have continually expanded our ministries and outreach efforts, always striving to serve God and our neighbors with open hearts.
-        </Typography>
-      </Box>
-      
+      {/* Historique */}
+      <motion.div
+        ref={historyRef}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={historyInView ? 'visible' : 'hidden'}
+      >
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 700,
+              color: '#1976d2',
+              mb: 2,
+              fontSize: { xs: '2rem', md: '2.5rem' },
+            }}
+          >
+            Notre Histoire
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              maxWidth: '800px',
+              mx: 'auto',
+              color: '#555',
+              fontSize: { xs: '1rem', md: '1.125rem' },
+            }}
+          >
+            Fondée en [Année], l’Église [Nom de l’Église] est un pilier de foi dans la communauté depuis
+            plus de [X ans]. Ce qui a commencé comme un petit rassemblement de croyants s’est
+            transformé en une communauté vibrante dédiée à l’adoration, à la fraternité et au service.
+            Au fil des années, nous avons élargi nos ministères et nos efforts d’entraide, toujours avec
+            le désir de servir Dieu et nos voisins avec des cœurs ouverts.
+          </Typography>
+        </Box>
+      </motion.div>
     </Box>
   );
 };
