@@ -115,7 +115,7 @@ function HomeBanner() {
               textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)', // Ombre pour lisibilité
             }}
           >
-            Bienvenue à CoP Lille
+            Bienvenue à The Lille City Church
           </Typography>
           <Typography
             variant="h5"

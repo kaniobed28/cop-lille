@@ -33,6 +33,12 @@ function App() {
           <Route path="/about-us" element={<AboutUs></AboutUs>} />
           <Route path="/blog" element={<Blog></Blog>} />
           <Route path="/events" element={<Events></Events>} />
+
+          {/* Defined french routes here */}
+          <Route path="/accueil" element={<Home></Home>} />
+          <Route path="/à-propos" element={<AboutUs></AboutUs>} />
+          <Route path="/blog" element={<Blog></Blog>} />
+          <Route path="/événements" element={<Events></Events>} />
           {/* Add other routes here */}
         </Routes>
       </ThemeProvider>
